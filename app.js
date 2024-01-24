@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const db = require('./db');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -10,6 +11,14 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 app.use(express.json());
+
+
+app.use(cors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,  // Enable credentials (cookies, Authorization headers, etc.)
+    optionsSuccessStatus: 204,  // No Content response for preflight requests
+}));
 
 app.post('/api/user', (req, res) => {
     // Extract data from the request body
